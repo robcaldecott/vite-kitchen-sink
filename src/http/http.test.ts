@@ -1,4 +1,3 @@
-import { fn } from "vitest";
 import { setupServer } from "msw/node";
 import { rest } from "msw";
 import { http } from ".";
@@ -29,7 +28,7 @@ test("delete", async () => {
 
 test("post", (done) => {
   const body = { name: "Jane Doe", email: "jane@company.com" };
-  const mock = fn((req, res, ctx) => {
+  const mock = vi.fn((req, res, ctx) => {
     try {
       expect(req.headers.get("Content-Type")).toEqual("application/json");
       expect(req.body).toEqual(body);
@@ -44,7 +43,7 @@ test("post", (done) => {
 });
 
 test("searchParams", (done) => {
-  const mock = fn((req, res, ctx) => {
+  const mock = vi.fn((req, res, ctx) => {
     try {
       expect(req.url.searchParams.get("param1")).toEqual("hello");
       expect(req.url.searchParams.get("param2")).toEqual("true");
@@ -59,7 +58,7 @@ test("searchParams", (done) => {
 });
 
 test("headers", (done) => {
-  const mock = fn((req, res, ctx) => {
+  const mock = vi.fn((req, res, ctx) => {
     try {
       expect(req.headers.get("Authorization")).toEqual("Bearer TOKEN");
       done();

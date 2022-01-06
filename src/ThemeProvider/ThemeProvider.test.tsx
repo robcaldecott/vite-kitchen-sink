@@ -1,10 +1,9 @@
-import { fn } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ThemeProvider, useThemeMode } from ".";
 
 test("ThemeProvider", async () => {
-  const onChangeMode = fn();
+  const onChangeMode = vi.fn();
   const Component = () => {
     const { mode, setMode, toggle } = useThemeMode();
     return (

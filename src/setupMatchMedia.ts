@@ -1,4 +1,3 @@
-import { fn } from "vitest";
 import mediaQuery from "css-mediaquery";
 
 const createMatchMedia =
@@ -7,11 +6,11 @@ const createMatchMedia =
     matches: mediaQuery.match(query, { width }),
     media: query,
     onchange: null,
-    addListener: fn(),
-    removeListener: fn(),
-    addEventListener: fn(),
-    removeEventListener: fn(),
-    dispatchEvent: fn(),
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
   });
 
 window.matchMedia = createMatchMedia(window.innerWidth);
