@@ -18,9 +18,6 @@ export default defineConfig({
     global: true,
     environment: "jsdom",
     setupFiles: ["./src/setupMatchMedia.ts", "./src/setupTests.ts"],
-    deps: {
-      inline: ["whatwg-fetch", "formik-mui-lab"],
-    },
     coverage: {
       exclude: [
         ".storybook",
