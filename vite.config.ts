@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -20,11 +21,10 @@ export default defineConfig({
     setupFiles: ["./src/setupMatchMedia.ts", "./src/setupTests.ts"],
     coverage: {
       exclude: [
+        "**/*.test.tsx",
         ".storybook",
         "**/*.stories.tsx",
-        "**/*.test.tsx",
-        "src/setupMatchMedia.ts",
-        "src/setupTests.ts",
+        "src/setup*.ts",
       ],
     },
   },
