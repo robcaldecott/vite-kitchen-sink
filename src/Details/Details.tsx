@@ -122,7 +122,12 @@ function Success({ data }: SuccessProps) {
                 description="Label for the vehicle colour"
               />
             </dt>
-            <Box display="flex" alignItems="center" aria-labelledby="color">
+            <Box
+              component="dd"
+              display="flex"
+              alignItems="center"
+              aria-labelledby="color"
+            >
               <Box
                 component="span"
                 sx={{
