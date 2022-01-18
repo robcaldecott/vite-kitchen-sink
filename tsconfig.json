@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["vitest/global"]
+    "types": ["vitest/globals"]
   },
   "include": ["src", ".storybook"]
 }
