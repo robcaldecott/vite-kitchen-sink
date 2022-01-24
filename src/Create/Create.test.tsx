@@ -15,21 +15,22 @@ it("creates a new user", async () => {
   await act(async () => {
     await Filled.play({ canvasElement: container });
   });
+
   // Submit the form
   userEvent.click(screen.getByRole("button", { name: /create/i }));
 
   // Fields should be disabled
-  expect(screen.getByLabelText(/make/i)).toHaveAttribute(
+  expect(screen.getByRole("button", { name: /make/i })).toHaveAttribute(
     "aria-disabled",
     "true"
   );
   expect(screen.getByRole("textbox", { name: /model/i })).toBeDisabled();
   expect(screen.getByRole("textbox", { name: /variant/i })).toBeDisabled();
-  expect(screen.getByLabelText(/fuel/i)).toHaveAttribute(
+  expect(screen.getByRole("button", { name: /fuel/i })).toHaveAttribute(
     "aria-disabled",
     "true"
   );
-  expect(screen.getByLabelText(/colour/i)).toHaveAttribute(
+  expect(screen.getByRole("button", { name: /colour/i })).toHaveAttribute(
     "aria-disabled",
     "true"
   );
