@@ -22,7 +22,13 @@ function AppHeader({ title }: AppHeaderProps) {
     >
       <Toolbar variant="dense">
         {/* App title */}
-        <Typography variant="h6" color="inherit" flexGrow={1} noWrap>
+        <Typography
+          variant="h6"
+          color="inherit"
+          flexGrow={1}
+          minWidth={0}
+          noWrap
+        >
           {title}
         </Typography>
         {/* Light/dark mode toggle */}
