@@ -34,12 +34,12 @@ module.exports = {
       ...(config.optimizeDeps || {}),
       include: [
         ...(config?.optimizeDeps?.include || []),
-        "jest-mock",
-        "@storybook/components",
-        "@storybook/store",
+        // Imports from preview.tsx
         "msw-storybook-addon",
         "storybook-dark-mode",
         "storybook-addon-intl",
+        "react-intl",
+        "react-query",
       ],
     };
     return config;
