@@ -1,10 +1,4 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  UseQueryResult,
-  UseMutationResult,
-} from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { http } from "./http";
 
 export interface VehiclePayload {
@@ -23,52 +17,52 @@ export interface Vehicle extends VehiclePayload {
   id: string;
 }
 
-export function useVehicles(): UseQueryResult<Vehicle[], Response> {
-  return useQuery("vehicles", () => http.get("/api/vehicles"));
+export function useVehicles() {
+  return useQuery<Vehicle[], Response>("vehicles", () =>
+    http.get("/api/vehicles")
+  );
 }
 
-export function useVehicle(id: string): UseQueryResult<Vehicle, Response> {
-  return useQuery(["vehicle", id], () => http.get(`/api/vehicles/${id}`));
+export function useVehicle(id: string) {
+  return useQuery<Vehicle, Response>(["vehicle", id], () =>
+    http.get(`/api/vehicles/${id}`)
+  );
 }
 
-export function useCreateVehicle(): UseMutationResult<
-  Vehicle,
-  Response,
-  VehiclePayload
-> {
-  return useMutation((body) => http.post("/api/vehicles", { json: body }));
+export function useCreateVehicle() {
+  return useMutation<Vehicle, Response, VehiclePayload>((body) =>
+    http.post("/api/vehicles", { json: body })
+  );
 }
 
-export function useDeleteVehicle(): UseMutationResult<
-  Vehicle,
-  Response,
-  string,
-  Vehicle[]
-> {
+export function useDeleteVehicle() {
   const queryClient = useQueryClient();
 
-  return useMutation((id) => http.delete(`/api/vehicles/${id}`), {
-    onMutate: async (id) => {
-      await queryClient.cancelQueries("vehicles");
-      // Remove the vehicles immediately
-      const previous = queryClient.getQueryData<Vehicle[]>("vehicles");
-      if (previous) {
-        queryClient.setQueryData(
-          "vehicles",
-          previous.filter((vehicle) => vehicle.id !== id)
-        );
-      }
-      return previous;
-    },
-    onError: (error, id, context) => {
-      // Revert the original list of vehicles on error
-      if (context) {
-        queryClient.setQueryData(["vehicles"], context);
-      }
-    },
-    onSettled: () => {
-      // Fetch the list of new vehicles
-      queryClient.invalidateQueries("vehicles");
-    },
-  });
+  return useMutation<Vehicle, Response, string, Vehicle[]>(
+    (id) => http.delete(`/api/vehicles/${id}`),
+    {
+      onMutate: async (id) => {
+        await queryClient.cancelQueries("vehicles");
+        // Remove the vehicles immediately
+        const previous = queryClient.getQueryData<Vehicle[]>("vehicles");
+        if (previous) {
+          queryClient.setQueryData(
+            "vehicles",
+            previous.filter((vehicle) => vehicle.id !== id)
+          );
+        }
+        return previous;
+      },
+      onError: (error, id, context) => {
+        // Revert the original list of vehicles on error
+        if (context) {
+          queryClient.setQueryData(["vehicles"], context);
+        }
+      },
+      onSettled: () => {
+        // Fetch the list of new vehicles
+        queryClient.invalidateQueries("vehicles");
+      },
+    }
+  );
 }
