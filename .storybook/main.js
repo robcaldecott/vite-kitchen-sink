@@ -16,7 +16,7 @@ module.exports = {
   staticDirs: ["../public"],
   framework: "@storybook/react",
   core: {
-    builder: "storybook-builder-vite",
+    builder: "@storybook/builder-vite",
   },
   async viteFinal(config, { configType }) {
     config.plugins = [

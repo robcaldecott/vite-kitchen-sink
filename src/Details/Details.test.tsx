@@ -54,7 +54,7 @@ test("loading error", async () => {
   ).toBeInTheDocument();
   expect(screen.getByText(/500: internal server error/i)).toBeInTheDocument();
   // Click Home button
-  userEvent.click(screen.getByRole("link", { name: /home/i }));
+  await userEvent.click(screen.getByRole("link", { name: /home/i }));
   expect(
     await screen.findByRole("heading", { name: /home/i, level: 1 })
   ).toBeInTheDocument();
@@ -63,7 +63,7 @@ test("loading error", async () => {
 test("delete vehicle", async () => {
   render(<Success />);
   // Click on the Delete User button when it loads
-  userEvent.click(
+  await userEvent.click(
     await screen.findByRole("button", { name: /delete vehicle/i })
   );
   // Wait for the dialog to appear
@@ -71,7 +71,7 @@ test("delete vehicle", async () => {
     await screen.findByRole("dialog", { name: /delete vehicle/i })
   );
   // Click the Delete button
-  userEvent.click(dialog.getByRole("button", { name: /delete/i }));
+  await userEvent.click(dialog.getByRole("button", { name: /delete/i }));
   // We should end up on the home page
   expect(
     await screen.findByRole("heading", { name: /home/i, level: 1 })
@@ -81,7 +81,7 @@ test("delete vehicle", async () => {
 test("cancels the delete dialog", async () => {
   render(<Success />);
   // Click on the Delete User button when it loads
-  userEvent.click(
+  await userEvent.click(
     await screen.findByRole("button", { name: /delete vehicle/i })
   );
   // Wait for the dialog to appear
@@ -89,7 +89,7 @@ test("cancels the delete dialog", async () => {
     await screen.findByRole("dialog", { name: /delete vehicle/i })
   );
   // Click the Cancel button
-  userEvent.click(dialog.getByRole("button", { name: /cancel/i }));
+  await userEvent.click(dialog.getByRole("button", { name: /cancel/i }));
   // Wait for the dialog to close
   await waitForElementToBeRemoved(() =>
     screen.queryByRole("dialog", { name: /delete vehicle/i })
@@ -109,11 +109,11 @@ test("clear delete error", async () => {
   const { container } = render(<DeleteError />);
   await DeleteError.play({ canvasElement: container });
   // Clear the error
-  userEvent.click(await screen.findByRole("button", { name: /close/i }));
-  // Wait for the error to disappear
-  await waitForElementToBeRemoved(() =>
+  await userEvent.click(await screen.findByRole("button", { name: /close/i }));
+  // The error should be gone
+  expect(
     screen.queryByText(/500: internal server error/i)
-  );
+  ).not.toBeInTheDocument();
   // The delete button should be back!
   expect(
     screen.getByRole("button", { name: /delete vehicle/i })

@@ -18,7 +18,7 @@ export default defineConfig({
     visualizer(),
   ],
   test: {
-    global: true,
+    globals: true,
     environment: "jsdom",
     setupFiles: ["./src/setupMatchMedia.ts", "./src/setupTests.ts"],
     coverage: {

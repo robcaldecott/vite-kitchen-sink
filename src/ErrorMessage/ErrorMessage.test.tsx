@@ -13,7 +13,7 @@ it("renders without an action", () => {
   expect(screen.getByText(/500: an error occurred/i)).toBeInTheDocument();
 });
 
-it("renders with an action", () => {
+it("renders with an action", async () => {
   render(<WithAction />);
-  userEvent.click(screen.getByRole("button", { name: /action/i }));
+  await userEvent.click(screen.getByRole("button", { name: /action/i }));
 });

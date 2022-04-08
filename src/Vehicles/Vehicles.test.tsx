@@ -42,7 +42,7 @@ it("renders with data", async () => {
 it("searches", async () => {
   render(<Success />);
   // Filter on "jane"
-  userEvent.type(await screen.findByRole("textbox"), "volk");
+  await userEvent.type(await screen.findByRole("textbox"), "volk");
   // Wait for the count to update
   expect(await screen.findByText("1")).toBeInTheDocument();
   // There should only be one item in the list
@@ -54,7 +54,7 @@ it("searches", async () => {
     })
   ).toBeInTheDocument();
   // Clear the search
-  userEvent.click(screen.getByRole("button", { name: /clear/i }));
+  await userEvent.click(screen.getByRole("button", { name: /clear/i }));
   expect(await screen.findByText("2")).toBeInTheDocument();
   expect(list.getAllByRole("link")).toHaveLength(2);
 });
@@ -62,7 +62,7 @@ it("searches", async () => {
 it("handles no results found", async () => {
   render(<Success />);
   // Filter on "test"
-  userEvent.type(await screen.findByRole("textbox"), "test");
+  await userEvent.type(await screen.findByRole("textbox"), "test");
   expect(
     await screen.findByRole("heading", {
       name: /no matching vehicles found\./i,
@@ -88,6 +88,6 @@ it("renders errors", async () => {
     screen.getByRole("button", { name: /try again/i })
   ).toBeInTheDocument();
   // Click Try again
-  userEvent.click(screen.getByRole("button", { name: /try again/i }));
+  await userEvent.click(screen.getByRole("button", { name: /try again/i }));
   expect(await screen.findByLabelText(/loading vehicles/i)).toBeInTheDocument();
 });

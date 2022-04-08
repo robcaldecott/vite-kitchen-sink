@@ -17,7 +17,7 @@ it("creates a new user", async () => {
   });
 
   // Submit the form
-  userEvent.click(screen.getByRole("button", { name: /create/i }));
+  await userEvent.click(screen.getByRole("button", { name: /create/i }));
 
   // Fields should be disabled
   expect(screen.getByRole("button", { name: /make/i })).toHaveAttribute(
@@ -58,7 +58,7 @@ it("validates the fields", async () => {
   render(<Empty />);
   // eslint-disable-next-line testing-library/no-unnecessary-act
   await act(async () => {
-    userEvent.click(screen.getByRole("button", { name: /create/i }));
+    await userEvent.click(screen.getByRole("button", { name: /create/i }));
   });
   // Check the validation messages
   expect(screen.getByText(/please select a make/i)).toBeInTheDocument();
@@ -82,7 +82,7 @@ it("resets the form", async () => {
   // eslint-disable-next-line testing-library/no-unnecessary-act
   await act(async () => {
     await Filled.play({ canvasElement: container });
-    userEvent.click(screen.getByRole("button", { name: /reset/i }));
+    await userEvent.click(screen.getByRole("button", { name: /reset/i }));
   });
   // Check fields
   expect(
@@ -104,7 +104,7 @@ it("resets the form", async () => {
 
 it("cancels the form", async () => {
   render(<Empty />);
-  userEvent.click(screen.getByRole("button", { name: /cancel/i }));
+  await userEvent.click(screen.getByRole("button", { name: /cancel/i }));
   expect(
     await screen.findByRole("heading", { name: /home/i, level: 1 })
   ).toBeInTheDocument();
@@ -112,7 +112,7 @@ it("cancels the form", async () => {
 
 it("handles the breadcrumbs", async () => {
   render(<Empty />);
-  userEvent.click(screen.getByRole("link", { name: /home/i }));
+  await userEvent.click(screen.getByRole("link", { name: /home/i }));
   expect(
     await screen.findByRole("heading", { name: /home/i, level: 1 })
   ).toBeInTheDocument();
