@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
-import { DefaultRequestBody, PathParams, rest } from "msw";
+import { DefaultBodyType, PathParams, rest } from "msw";
 import { MemoryRouter, Routes, Route, Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -69,11 +69,11 @@ export const Success = Template.bind({});
 Success.parameters = {
   msw: {
     handlers: [
-      rest.get<DefaultRequestBody, PathParams, Vehicle>(
+      rest.get<DefaultBodyType, PathParams, Vehicle>(
         "/api/vehicles/:vehicleId",
         (req, res, ctx) => res(ctx.json(vehicle))
       ),
-      rest.delete<DefaultRequestBody, PathParams, { id: string }>(
+      rest.delete<DefaultBodyType, PathParams, { id: string }>(
         "/api/vehicles/:vehicleId",
         (req, res, ctx) => res(ctx.json({ id: "123" }))
       ),
@@ -105,7 +105,7 @@ export const DeleteError = Template.bind({});
 DeleteError.parameters = {
   msw: {
     handlers: [
-      rest.get<DefaultRequestBody, PathParams, Vehicle>(
+      rest.get<DefaultBodyType, PathParams, Vehicle>(
         "/api/vehicles/:vehicleId",
         (req, res, ctx) => res(ctx.json(vehicle))
       ),
@@ -134,7 +134,7 @@ export const HomeBreadcrumb = Template.bind({});
 HomeBreadcrumb.parameters = {
   msw: {
     handlers: [
-      rest.get<DefaultRequestBody, PathParams, Vehicle>(
+      rest.get<DefaultBodyType, PathParams, Vehicle>(
         "/api/vehicles/:vehicleId",
         (req, res, ctx) => res(ctx.json(vehicle))
       ),

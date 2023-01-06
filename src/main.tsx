@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -15,7 +15,7 @@ import("./mocks/browser").then(({ worker }) => {
   // Create the react-query client
   const queryClient = new QueryClient();
   // Render the app
-  ReactDOM.render(
+  ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         <IntlProvider locale="en-GB" defaultLocale="en-GB">
@@ -26,7 +26,6 @@ import("./mocks/browser").then(({ worker }) => {
           </Router>
         </IntlProvider>
       </QueryClientProvider>
-    </React.StrictMode>,
-    document.getElementById("root")
+    </React.StrictMode>
   );
 });
